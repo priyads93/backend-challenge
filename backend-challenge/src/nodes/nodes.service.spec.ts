@@ -139,7 +139,6 @@ describe('NodesService', () => {
     const response = await service.findAll();
     // assert
     expect(mockEntityManager.getTreeRepository().findTrees).toHaveBeenCalled();
-    console.log('response', response);
     expect(response).toEqual([]);
   });
 
