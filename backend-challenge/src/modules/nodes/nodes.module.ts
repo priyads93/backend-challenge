@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { NodesService } from './nodes.service';
+import { Node } from '../../entities/node.entity';
 import { NodesController } from './nodes.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Node } from './entities/node.entity';
-import { Property } from '../properties/entities/property.entity';
+import { Property } from '../../entities/property.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Node, Property])],

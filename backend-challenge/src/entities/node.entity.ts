@@ -1,3 +1,5 @@
+import { AbstractEntity } from '../database/abstract.entity';
+import { Property } from './property.entity';
 import {
   Column,
   Entity,
@@ -6,8 +8,6 @@ import {
   TreeChildren,
   TreeParent,
 } from 'typeorm';
-import { AbstractEntity } from '../../database/abstract.entity';
-import { Property } from '../../properties/entities/property.entity';
 
 @Entity()
 @Tree('materialized-path')

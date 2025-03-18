@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { EntityManager, Repository } from 'typeorm';
-import { Node } from '../nodes/entities/node.entity';
-import { Property } from './entities/property.entity';
+import { Property } from '../../entities/property.entity';
+import { Node } from '../../entities/node.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()

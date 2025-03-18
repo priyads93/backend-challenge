@@ -1,8 +1,8 @@
 import { ConfigService } from '@nestjs/config';
 import { config } from 'dotenv';
-import { Node } from './src/nodes/entities/node.entity';
 import { DataSource } from 'typeorm';
-import { Property } from './src/properties/entities/property.entity';
+import { Property } from './src/entities/property.entity';
+import { Node } from './src/entities/node.entity';
 
 config();
 

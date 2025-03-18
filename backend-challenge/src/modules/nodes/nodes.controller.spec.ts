@@ -4,7 +4,7 @@ import { NodesController } from './nodes.controller';
 import { NodesService } from './nodes.service';
 import { CreateNodeDto } from './dto/create-node.dto';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Node } from './entities/node.entity';
+import { Node } from '../../entities/node.entity';
 
 const mockNodesService = {
   findAll: jest.fn(),

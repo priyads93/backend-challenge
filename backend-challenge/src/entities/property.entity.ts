@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { AbstractEntity } from '../../database/abstract.entity';
-import { Node } from '../../nodes/entities/node.entity';
+import { AbstractEntity } from '../database/abstract.entity';
+import { Node } from './node.entity';
 
 @Entity()
 export class Property extends AbstractEntity<Property> {

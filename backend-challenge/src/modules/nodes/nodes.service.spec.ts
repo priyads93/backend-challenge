@@ -3,10 +3,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NodesService } from './nodes.service';
 import { EntityManager } from 'typeorm';
 import { CreateNodeDto } from './dto/create-node.dto';
-import { Node } from './entities/node.entity';
+import { Node } from '../../entities/node.entity';
 import { PropertiesService } from '../properties/properties.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Property } from '../properties/entities/property.entity';
+import { Property } from '../../entities/property.entity';
 
 const mockEntityManager = {
   save: jest.fn(),

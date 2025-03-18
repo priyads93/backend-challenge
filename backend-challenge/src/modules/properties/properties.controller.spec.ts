@@ -1,50 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Test, TestingModule } from '@nestjs/testing';
+import { PropertiesController } from './properties.controller';
 import { PropertiesService } from './properties.service';
-import { NodesService } from '../nodes/nodes.service';
-import { Node } from '../nodes/entities/node.entity';
-import { Property } from './entities/property.entity';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
 import { CreatePropertyDto } from './dto/create-property.dto';
+import { Property } from '../../entities/property.entity';
 
-const mockEntityManager = {
-  save: jest.fn(),
+const mockPropertiesService = {
+  create: jest.fn(),
 };
 
-const mockNodesRepository = {
-  findOne: jest.fn((input: { where: { id: number } }) => {
-    if (input.where.id === 1) {
-      return {
-        id: 1,
-        name: 'Alpha PC',
-      };
-    }
-  }),
-};
-
-describe('PropertiesService', () => {
-  let service: PropertiesService;
+describe('PropertiesController', () => {
+  let controller: PropertiesController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      controllers: [PropertiesController],
       providers: [
-        NodesService,
-        PropertiesService,
-        { provide: getRepositoryToken(Node), useValue: mockNodesRepository },
-        { provide: getRepositoryToken(Property), useValue: {} },
         {
-          provide: EntityManager,
-          useValue: mockEntityManager,
+          provide: PropertiesService,
+          useValue: mockPropertiesService,
         },
       ],
     }).compile();
 
-    service = module.get<PropertiesService>(PropertiesService);
+    controller = module.get<PropertiesController>(PropertiesController);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(controller).toBeDefined();
   });
 
   it('create => Should create a new property and return its data', async () => {
@@ -61,14 +44,16 @@ describe('PropertiesService', () => {
       value: 450.0,
     } as Partial<Property>;
 
-    jest.spyOn(mockEntityManager, 'save').mockReturnValue(property);
+    jest.spyOn(mockPropertiesService, 'create').mockReturnValue(property);
 
     // act
-    const result = await service.create(createPropertyDto);
+    const result = await controller.create(createPropertyDto);
 
     // assert
-    expect(mockEntityManager.save).toHaveBeenCalled();
-    expect(mockEntityManager.save).toHaveBeenCalledWith(createPropertyDto);
+    expect(mockPropertiesService.create).toHaveBeenCalled();
+    expect(mockPropertiesService.create).toHaveBeenCalledWith(
+      createPropertyDto,
+    );
 
     expect(result).toEqual(property);
   });
@@ -82,7 +67,7 @@ describe('PropertiesService', () => {
     } as CreatePropertyDto;
 
     try {
-      await service.create(createPropertyDto);
+      await controller.create(createPropertyDto);
     } catch (error) {
       expect(error.response).toStrictEqual({
         message: 'Not a valid node',
